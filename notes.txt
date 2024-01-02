@@ -1,0 +1,27 @@
+TO DO's:
+    -const cors = require('cors');
+    -add controllers
+    -api versioning
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~
+USER
+    -first name
+    -last name
+    -email
+    -password
+
+POST
+    -title
+    -body
+    -isPublished
+    -userId
+
+COMMENT
+    -body
+    -authorName
+    -postID
+
+
+
