@@ -6,7 +6,7 @@ const cors = require("cors");
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
 const models = require("./models");
 const Post = models.Post;
@@ -25,14 +25,23 @@ app.get("/api/posts", async (req, res) => {
     const posts = await Post.findAll();
 
     if (!posts) {
-      return res.status(400).json({error: "Posts not found"});
+      return res.status(400).json({ error: "Posts not found" });
     }
+
+    posts.filter((post) => {
+      return post.isPublished;
+    });
+
+    console.log(posts);
+    // console.log(posts)
+    // console.log(posts)
+
     res.json({
       posts,
     });
   } catch (error) {
     console.log("error: ", error);
-    res.status(500).json({error});
+    res.status(500).json({ error });
   }
 });
 
@@ -40,16 +49,16 @@ app.get("/api/posts", async (req, res) => {
 app.get("/api/posts/:id", async (req, res) => {
   try {
     const post = await Post.findByPk(req.params.id, {
-      include: [{model: models.Comment}],
+      include: [{ model: models.Comment }],
     });
     if (!post) {
-      return res.status(404).json({error: "Post not found"});
+      return res.status(404).json({ error: "Post not found" });
     }
 
     res.json(post);
   } catch (error) {
     console.error("Error:", error);
-    res.status(500).json({error: "Internal server error"});
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
