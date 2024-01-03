@@ -22,26 +22,17 @@ const Post = models.Post;
 // GET ALL POSTS (W/O COMMENTS)
 app.get("/api/posts", async (req, res) => {
   try {
-    const posts = await Post.findAll();
+    // let posts = await Post.findAll({ where: { isPublished: true } });  //only published posts
+    let posts = await Post.findAll();
 
-    if (!posts) {
-      return res.status(400).json({ error: "Posts not found" });
-    }
+    // if (posts.length === 0) {
+    //   return res.status(404).json({ error: "No posts found" });
+    // }
 
-    posts.filter((post) => {
-      return post.isPublished;
-    });
-
-    console.log(posts);
-    // console.log(posts)
-    // console.log(posts)
-
-    res.json({
-      posts,
-    });
+    res.json({ posts });
   } catch (error) {
-    console.log("error: ", error);
-    res.status(500).json({ error });
+    console.error("Error: ", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
