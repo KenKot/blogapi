@@ -1,6 +1,7 @@
 "use strict";
 
 const models = require("../models");
+const bcrypt = require("bcrypt");
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -17,12 +18,14 @@ module.exports = {
 
     const users = [];
 
+    const hashedPassword = await bcrypt.hash("asdf", 10);
+
     const user = {
       id: 1,
       firstName: "Bob",
       lastName: "Smith",
       email: "bob@gmail.com",
-      password: "temp",
+      password: hashedPassword,
     };
 
     users.push(user);
